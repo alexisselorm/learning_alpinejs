@@ -9,11 +9,12 @@
 </head>
 <body>
 
+    <!--1.  Intro -->
     <div x-data="{hello:'world'}">
         <span x-text="hello"></span>
     </div>
 
-    <!-- Visibility -->
+    <!--2.  Visibility -->
     <div x-data="{visible:false}">
 
         <div x-show="visible">Some things</div>
@@ -34,5 +35,33 @@
             You're trespassing
         </div>
     </div>
+
+    <!-- 3 Data Binding - Model -->
+    <div x-data="{name:''}">
+        <input type="text" x-model="name">
+        <span x-text="name"></span>
+    </div>
+
+    <form x-data="{name:''}" x-on:submit.prevent="console.log(name)">
+        <input type="text" x-model="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <div 
+    x-data="{
+        name:'',
+        makeNameUppercase(){
+            this.name = this.name.toUpperCase()
+        }
+    }"
+    >
+        <input type="text" x-model="name">
+        <span x-text="name"></span>
+        <button
+        x-on:click="makeNameUppercase"
+        >Uppercase
+        </button>
+    </div>
+    
 </body>
 </html>
