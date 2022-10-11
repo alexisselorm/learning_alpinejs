@@ -1,67 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="//unpkg.com/alpinejs" defer></script>
-</head>
-<body>
-
+  </head>
+  <body>
     <!--1.  Intro -->
+    <h1>INTRO</h1>
     <div x-data="{hello:'world'}">
-        <span x-text="hello"></span>
+      <span x-text="hello"></span>
     </div>
 
+    <br />
+    <br />
+    <br />
+
     <!--2.  Visibility -->
+    <h1>VISIBILITY</h1>
     <div x-data="{visible:false}">
-
-        <div x-show="visible">Some things</div>
-
+      <div x-show="visible">Some things</div>
     </div>
 
     <div x-data="{show:false}">
-        <button x-on:click="show = !show">
-            Toggle
-        </button>
-        <div x-show="show">On and off</div>
+      <button x-on:click="show = !show">Toggle</button>
+      <div x-show="show">On and off</div>
     </div>
 
     <div x-data="{number:0}">
-        <button x-on:click="number++">Increment</button>
-        <div x-text="number"></div>
-        <div x-show="number > 13">
-            You're trespassing
-        </div>
+      <button x-on:click="number++">Increment</button>
+      <div x-text="number"></div>
+      <div x-show="number > 13">You're trespassing</div>
     </div>
 
+    <br />
+    <br />
+    <br />
+
     <!-- 3 Data Binding - Model -->
+    <h1>DATA MODEL BINDING</h1>
     <div x-data="{name:''}">
-        <input type="text" x-model="name">
-        <span x-text="name"></span>
+      <input type="text" x-model="name" />
+      <span x-text="name"></span>
     </div>
 
     <form x-data="{name:''}" x-on:submit.prevent="console.log(name)">
-        <input type="text" x-model="name">
-        <button type="submit">Submit</button>
+      <input type="text" x-model="name" />
+      <button type="submit">Submit</button>
     </form>
 
-    <div 
-    x-data="{
+    <div
+      x-data="{
         name:'',
         makeNameUppercase(){
             this.name = this.name.toUpperCase()
         }
     }"
     >
-        <input type="text" x-model="name">
-        <span x-text="name"></span>
-        <button
-        x-on:click="makeNameUppercase"
-        >Uppercase
-        </button>
+      <input type="text" x-model="name" />
+      <span x-text="name"></span>
+      <button x-on:click="makeNameUppercase">Uppercase</button>
     </div>
-    
-</body>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- 4. Project - IMAGE FINDER -->
+    <h1>MINI PROJECT - IMAGE FINDER</h1>
+
+    <div
+      x-data="{
+    query:'',
+    img:'',
+    getImage(){
+        this.img = `https://source.unsplash.com/1600x900/?${this.query}`
+    }
+
+}"
+    >
+      <form x-on:submit.prevent="getImage">
+        <input type="text" x-model="query" />
+        <button type="submit">Search</button>
+      </form>
+      <img x-bind:src="img" style="width: 300px" alt="" />
+    </div>
+  </body>
 </html>
