@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+
+    <div x-data="{hello:'world'}">
+        <span x-text="hello"></span>
+    </div>
+
+    <!-- Visibility -->
+    <div x-data="{visible:false}">
+
+        <div x-show="visible">Some things</div>
+
+    </div>
+
+    <div x-data="{show:false}">
+        <button x-on:click="show = !show">
+            Toggle
+        </button>
+        <div x-show="show">On and off</div>
+    </div>
+
+    <div x-data="{number:0}">
+        <button x-on:click="number++">Increment</button>
+        <div x-text="number"></div>
+        <div x-show="number > 13">
+            You're trespassing
+        </div>
+    </div>
+</body>
+</html>
