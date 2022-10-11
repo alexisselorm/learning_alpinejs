@@ -9,7 +9,7 @@
   </head>
   <body>
     <!--1.  Intro -->
-    <h1>INTRO</h1>
+    <h1>1. INTRO</h1>
     <div x-data="{hello:'world'}">
       <span x-text="hello"></span>
     </div>
@@ -19,7 +19,7 @@
     <br />
 
     <!--2.  Visibility -->
-    <h1>VISIBILITY</h1>
+    <h1>2. VISIBILITY</h1>
     <div x-data="{visible:false}">
       <div x-show="visible">Some things</div>
     </div>
@@ -40,7 +40,7 @@
     <br />
 
     <!-- 3 Data Binding - Model -->
-    <h1>DATA MODEL BINDING</h1>
+    <h1>3. DATA MODEL BINDING</h1>
     <div x-data="{name:''}">
       <input type="text" x-model="name" />
       <span x-text="name"></span>
@@ -69,7 +69,7 @@
     <br />
 
     <!-- 4. Project - IMAGE FINDER -->
-    <h1>MINI PROJECT - IMAGE FINDER</h1>
+    <h1>4. MINI PROJECT - IMAGE FINDER</h1>
 
     <div
       x-data="{
@@ -87,5 +87,48 @@
       </form>
       <img x-bind:src="img" style="width: 300px" alt="" />
     </div>
+
+    <!--5.  MORE INPUTS (Checkboxes,radios etc)-->
+    <h1>5. MORE INPUTS (Checkboxes,radios etc)</h1>
+    <div x-data="{agreed:false}">
+      <input type="checkbox" x-model="agreed" />
+      <span x-show="agreed">You have agreed</span>
+    </div>
+
+    <form
+      x-on:submit.prevent="deleteUsers"
+      x-data="{
+        users:[],
+        deleteUsers(){
+            console.log(this.users)
+        }
+    }"
+    >
+      <input type="checkbox" x-model="users" value="1" />Alexis
+      <input type="checkbox" x-model="users" value="2" />Faithful
+      <input type="checkbox" x-model="users" value="3" /> Myself
+
+      <button type="submit">Delete</button>
+    </form>
+
+    <!-- Dropdown -->
+    <div x-data="{plan:''}">
+      <select x-model="plan">
+        <option value="">Please choose</option>
+        <option value="yearly">Yearly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+
+      <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
+    </div>
+
+    <!-- Radio -->
+    <div x-data="{plan:'yearly'}">
+        <input type="radio" name="plan" value="monthly" x-model="plan">
+        <input type="radio" name="plan" value="yearly" x-model="plan">
+  
+        <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
+      </div>
+   
   </body>
 </html>
