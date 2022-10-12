@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
   </head>
   <body>
     <!--1.  Intro -->
@@ -135,6 +136,14 @@
       .bold {
         font-weight: bold;
       }
+      .progress {
+        width: 300px;
+        background-color: #ccc;
+      }
+      .progress-inner {
+        height: 10px;
+        background-color: slategray;
+      }
     </style>
     <div x-data="{selected:false}">
       <span x-bind:class="{'bold':selected}">Am I bold ?</span>
@@ -153,6 +162,75 @@
       <button type="submit" x-on:click="progress = progress + 5">
         Make Progress
       </button>
+    </div>
+
+    <div
+      x-data="{
+        selected:[],
+        people:[
+          {id:1, name:'John', age:'25'},
+          {id:2, name:'Doe', age:'25'},
+           {id:3, name:'Joe', age:'25'}
+        ]
+    }"
+    >
+      <template x-for="person in people">
+        <div>
+          <input
+            type="checkbox"
+            x-model.number="selected"
+            x-bind:value="person.id"
+            x-bind:id="`person_${person.id}`"
+          />
+          <span
+            x-text="person.name"
+            x-bind:class="{'bold':selected.includes(person.id)}"
+          ></span>
+        </div>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+      progress:0,
+      increment(){
+        this.progress++
+      },
+       init(){
+       let interval = setInterval(()=>{
+        if(this.progress > 100){
+          clearInterval(interval);
+          this.progress = 0;
+        }
+          this.increment()
+        },200)
+      }  
+    }"
+    >
+      <div class="progress">
+        <div class="progress-inner" x-bind:style="`width: ${progress}%`"></div>
+      </div>
+      <button x-on:click="increment">Increment</button>
+    </div>
+
+    <!--MINI PROJECT MARKDOWN PARSER -->
+    <h1>MINI PROJECT MARKDOWN PARSER</h1>
+    <div
+      x-data="{
+      body:'',
+      markdown:'',
+      preview(){
+        this.markdown = window.marked(this.body)
+      }
+    }"
+    >
+      <div>
+        <div>
+          <textarea cols="30" rows="4" x-model="body"></textarea>
+        </div>
+        <button type="submit" x-on:click="preview">Preview</button>
+      </div>
+      <div x-html="markdown"></div>
     </div>
   </body>
 </html>
