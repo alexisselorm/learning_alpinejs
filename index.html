@@ -124,11 +124,35 @@
 
     <!-- Radio -->
     <div x-data="{plan:'yearly'}">
-        <input type="radio" name="plan" value="monthly" x-model="plan">
-        <input type="radio" name="plan" value="yearly" x-model="plan">
-  
-        <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
-      </div>
-   
+      <input type="radio" name="plan" value="monthly" x-model="plan" />
+      <input type="radio" name="plan" value="yearly" x-model="plan" />
+
+      <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
+    </div>
+    <!-- 6. ATTRIBUTE BINDING -->
+    <h1>ATTRBITUE BINDING</h1>
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+    <div x-data="{selected:false}">
+      <span x-bind:class="{'bold':selected}">Am I bold ?</span>
+      <button x-on:click="selected = true">Make It Bold</button>
+    </div>
+
+    <form x-data="{name:''}">
+      <input type="text" x-model="name" />
+      <button type="submit" x-bind:disabled="name===''">Let's go</button>
+    </form>
+
+    <div x-data="{progress:0}">
+      <progress max="100" x-bind:value="progress">
+        <span x-text="`${progress}%`"></span>
+      </progress>
+      <button type="submit" x-on:click="progress = progress + 5">
+        Make Progress
+      </button>
+    </div>
   </body>
 </html>
