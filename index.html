@@ -8,7 +8,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
   </head>
-  <body>
+  <body style="width: 500px; margin: 0 auto">
     <!--1.  Intro -->
     <h1>1. INTRO</h1>
     <div x-data="{hello:'world'}">
@@ -214,7 +214,7 @@
     </div>
 
     <!--MINI PROJECT MARKDOWN PARSER -->
-    <h1>MINI PROJECT MARKDOWN PARSER</h1>
+    <h1>7. MINI PROJECT MARKDOWN PARSER</h1>
     <div
       x-data="{
       body:'',
@@ -231,6 +231,99 @@
         <button type="submit" x-on:click="preview">Preview</button>
       </div>
       <div x-html="markdown"></div>
+    </div>
+
+    <!-- LOOPING -->
+    <h1>8. LOOPING</h1>
+    <div
+      x-data="{
+      numbers:[1,2,3,4]
+    }"
+    >
+      <template x-for="number in numbers">
+        <span x-text="number"></span>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+      fruits:['apple','grape','orange','banana']
+    }"
+    >
+      <template x-for="fruit,index in fruits">
+        <div><span x-text="index+1"></span> <span x-text="fruit"></span></div>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+      people:[
+      { id:1,name: 'Bob', points: '19'},
+      { id:2,name: 'Alice', points: '6'},
+      { id:3,name: 'Max', points: '51'},
+      ],
+      get peopleSortedByPoint(){
+        return this.people.sort((a,b)=>a.points - b.points)
+      },
+
+      incrementPoints(id){
+        this.people.find((p)=>p.id === id).points++
+      }
+    }"
+    >
+      <template x-for="person in peopleSortedByPoint" :key="person.id">
+        <div>
+          <span x-text="person.name"></span> (<span
+            x-text="person.points"
+          ></span
+          >)
+          <button type="submit" x-on:click="incrementPoints(person.id)">
+            Increment
+          </button>
+        </div>
+      </template>
+    </div>
+
+    <!--  X-SHOW X-IF-->
+    <h1>X-SHOW X-IF</h1>
+    <div x-data="{show:false}">
+      <div x-show="show">Am I visible?</div>
+
+      <button type="submit" x-on:click="show = true">Show me</button>
+    </div>
+
+    <div x-data="{show:false}">
+      <button x-on:click="show=true">Show me</button>
+
+      <template x-if="show">
+        <div>Am I visible</div>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+        show:false,
+      users:[
+      {id:1, name:'John',points:19},
+      {id:2, name:'Jane',points:20},
+      {id:3, name:'Jan',points:30},
+      ],
+
+      usersSortedByPoints (){
+
+        return this.users.sort((a, b) => b.points - a.points)
+      }
+    }"
+    >
+      <button type="submit" x-on:click="show = true">Show Us</button>
+      <template x-if="show">
+        <template x-for="user in usersSortedByPoints()">
+          <span x-text="user.name"></span>(<span
+            x-text="user.points"
+          ></span
+          >)
+        </template>
+      </template>
     </div>
   </body>
 </html>
