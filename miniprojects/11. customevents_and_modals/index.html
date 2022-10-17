@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <style>
+    .modal-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 30%;
+      background-color: #fff;
+      padding: 20px;
+    }
+  </style>
+  <body>
+    <!-- 11/ Modals -->
+    <h1>11. MODALS AND CUSTOM EVENTS</h1>
+    <div
+      class="modal-wrapper"
+      x-data="{open:false}"
+      x-show="open"
+      x-on:open-modal.window="open=true"
+      x-on:keyup.escape.window="open=false"
+    >
+      <div class="modal" x-on:click.outside="open=false">I am a modal</div>
+    </div>
+    <button x-data x-on:click="$dispatch('open-modal')">Trigger modal</button>
+<!-- End of modal -->
+
+
+    <div x-data="{message:''}" x-on:message.window="message=$event.detail">
+      <span x-text="message"></span>
+    </div>
+
+    <button x-data x-on:click="$dispatch('message', 'Hello there')">
+      Set message
+    </button>
+  </body>
+</html>
