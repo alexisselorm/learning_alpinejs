@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!--  X-SHOW X-IF-->
+    <h1>9. X-SHOW X-IF</h1>
+    <div x-data="{show:false}">
+      <div x-show="show">Am I visible?</div>
+
+      <button type="submit" x-on:click="show = true">Show me</button>
+    </div>
+
+    <div x-data="{show:false}">
+      <button x-on:click="show=true">Show me</button>
+
+      <template x-if="show">
+        <div>Am I visible</div>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+        show:false,
+      users:[
+      {id:1, name:'John',points:19},
+      {id:2, name:'Jane',points:20},
+      {id:3, name:'Jan',points:30},
+      ],
+
+      usersSortedByPoints (){
+
+        return this.users.sort((a, b) => b.points - a.points)
+      }
+    }"
+    >
+      <button type="submit" x-on:click="show = true">Show Us</button>
+      <template x-if="show">
+        <template x-for="user in usersSortedByPoints()">
+          <span x-text="user.name"></span>(<span x-text="user.points"></span>)
+        </template>
+      </template>
+    </div>
+  </body>
+</html>

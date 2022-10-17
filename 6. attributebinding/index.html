@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body>
+    <h1>ATTRBITUE BINDING</h1>
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+      .progress {
+        width: 300px;
+        background-color: #ccc;
+      }
+      .progress-inner {
+        height: 10px;
+        background-color: slategray;
+      }
+    </style>
+    <div x-data="{selected:false}">
+      <span x-bind:class="{'bold':selected}">Am I bold ?</span>
+      <button x-on:click="selected = true">Make It Bold</button>
+    </div>
+
+    <form x-data="{name:''}">
+      <input type="text" x-model="name" />
+      <button type="submit" x-bind:disabled="name===''">Let's go</button>
+    </form>
+
+    <div x-data="{progress:0}">
+      <progress max="100" x-bind:value="progress">
+        <span x-text="`${progress}%`"></span>
+      </progress>
+      <button type="submit" x-on:click="progress = progress + 5">
+        Make Progress
+      </button>
+    </div>
+
+    <div
+      x-data="{
+        selected:[],
+        people:[
+          {id:1, name:'John', age:'25'},
+          {id:2, name:'Doe', age:'25'},
+           {id:3, name:'Joe', age:'25'}
+        ]
+    }"
+    >
+      <template x-for="person in people">
+        <div>
+          <input
+            type="checkbox"
+            x-model.number="selected"
+            x-bind:value="person.id"
+            x-bind:id="`person_${person.id}`"
+          />
+          <span
+            x-text="person.name"
+            x-bind:class="{'bold':selected.includes(person.id)}"
+          ></span>
+        </div>
+      </template>
+    </div>
+
+    <div
+      x-data="{
+      progress:0,
+      increment(){
+        this.progress++
+      },
+       init(){
+       let interval = setInterval(()=>{
+        if(this.progress > 100){
+          clearInterval(interval);
+          this.progress = 0;
+        }
+          this.increment()
+        },200)
+      }  
+    }"
+    >
+      <div class="progress">
+        <div class="progress-inner" x-bind:style="`width: ${progress}%`"></div>
+      </div>
+      <button x-on:click="increment">Increment</button>
+    </div>
+  </body>
+</html>

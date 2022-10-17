@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+
+
+    <!-- Event Handling -->
+    <h1>10. EVENT HANDLING</h1>
+    <button x-data x-on:click="console.log('click me')">Click me</button>
+
+    <div x-data>
+      <div x-on:click="alert('Told you I could talk')">
+        I am a talking div.Click me to find out
+      </div>
+    </div>
+
+    <form x-data x-on:submit="console.table('submitted')">
+      <textarea
+        cols="30"
+        rows="10"
+        x-data="{shiftHeld:false}"
+        x-on:keydown.shift="shiftHeld=true"
+        x-on:keyup.shift="shiftHeld=false"
+        x-on:keyup.enter="if (!shiftHeld) {$el.closest('form').dispatchEvent(new Event('submit'))}"
+      ></textarea>
+    </form>
+
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: slategray;
+      }
+    </style>
+    <div x-data="{open:false}">
+      <button x-on:click="open=true">Open Dropdown</button>
+      <div x-show="open" class="box" x-on:click.outside="open=false">
+        Menu Content
+      </div>
+    </div>
+  </body>
+</html>
