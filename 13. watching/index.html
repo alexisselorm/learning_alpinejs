@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      x-data="{
+        message: 'Hello',
+
+        init(){
+            $watch('this.messsage',value => console.log('changed',value))
+        }
+    }"
+    >
+      <span x-text="message"></span>
+      <button x-on:click=" message = 'Something'">Change message</button>
+    </div>
+
+    <div
+      x-data="{
+        query: '',
+        results: [],
+
+        performSearch(){
+            this.results=[
+            'apple','banana','grapes'
+            ];
+        },
+        init(){
+            $watch('query', query => this.performSearch(query))
+        }
+    }"
+    >
+      <span x-text="results"></span>
+      <input type="text" x-model="query" />
+    </div>
+  </body>
+</html>
