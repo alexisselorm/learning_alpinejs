@@ -285,7 +285,7 @@
     </div>
 
     <!--  X-SHOW X-IF-->
-    <h1>X-SHOW X-IF</h1>
+    <h1>9. X-SHOW X-IF</h1>
     <div x-data="{show:false}">
       <div x-show="show">Am I visible?</div>
 
@@ -318,12 +318,48 @@
       <button type="submit" x-on:click="show = true">Show Us</button>
       <template x-if="show">
         <template x-for="user in usersSortedByPoints()">
-          <span x-text="user.name"></span>(<span
-            x-text="user.points"
-          ></span
-          >)
+          <span x-text="user.name"></span>(<span x-text="user.points"></span>)
         </template>
       </template>
     </div>
+
+    <!-- Event Handling -->
+    <h1>10. EVENT HANDLING</h1>
+    <button x-data x-on:click="console.log('click me')">Click me</button>
+
+    <div x-data>
+      <div x-on:click="alert('Told you I could talk')">
+        I am a talking div.Click me to find out
+      </div>
+    </div>
+
+    <form x-data x-on:submit="console.table('submitted')">
+      <textarea
+        cols="30"
+        rows="10"
+        x-data="{shiftHeld:false}"
+        x-on:keydown.shift="shiftHeld=true"
+        x-on:keyup.shift="shiftHeld=false"
+        x-on:keyup.enter="if (!shiftHeld) {$el.closest('form').dispatchEvent(new Event('submit'))}"
+      ></textarea>
+    </form>
+
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: slategray;
+      }
+    </style>
+    <div x-data="{open:false}">
+      <button x-on:click="open=true">Open Dropdown</button>
+      <div x-show="open" class="box" x-on:click.outside="open=false">
+        Menu Content
+      </div>
+    </div>
+
+    <!-- 11/ Modals -->
+    <h1>11. MODALS AND CUSTOM EVENTS</h1>
+
   </body>
 </html>
